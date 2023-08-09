@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Home, Login } from '../pages';
 import { Loader, Navbar } from './';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useAuth } from '../hooks';
 
 
 const Elementfourofour = () => {
@@ -10,25 +11,27 @@ const Elementfourofour = () => {
 };
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [posts, setPosts] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await getPosts();
-      console.log('response', response);
+  const auth = useAuth();
 
-      if (response.success) {
-        setPosts(response.data.posts);
-      }
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     const response = await getPosts();
+  //     console.log('response', response);
 
-      setLoading(false);
-    };
+  //     if (response.success) {
+  //       setPosts(response.data.posts);
+  //     }
 
-    fetchPosts();
-  }, []);
+  //     setLoading(false);
+  //   };
 
-  if (loading) {
+  //   fetchPosts();
+  // }, []);
+
+  if (auth.loading) {
     return <Loader />;
   }
 
@@ -38,7 +41,7 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route exact path="/" element={<Home posts={posts} />} />
+          <Route exact path="/" element={<Home posts={[]} />} />
 
           <Route exact path="/login" element={<Login />} />
 
