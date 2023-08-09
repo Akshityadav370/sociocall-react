@@ -1,5 +1,6 @@
 import { getPosts } from '../api';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { Home } from '../pages';
 
 function App() {
   
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Home/>
     </div>
   );
 }
