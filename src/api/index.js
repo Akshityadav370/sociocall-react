@@ -1,12 +1,11 @@
-import { API_URLS, LOCALSTORAGE_TOKEN_KEY } from '../utils';
+import { API_URLS, LOCALSTORAGE_TOKEN_KEY, getFormBody } from '../utils';
 
 const customFetch = async (url, { body, ...customConfig }) => {
   const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
 
   // Default headers
   const headers = {
-    'content-type': 'application/json',
-    Accept: 'application/json',
+    'content-type': 'application/x-www-form-urlencoded',
   };
 
   if (token) {
@@ -22,10 +21,10 @@ const customFetch = async (url, { body, ...customConfig }) => {
     },
   };
 
-  // body is an object like {email: , password:  ,}
+  
   if (body) {
-    config.body = JSON.stringify(body);
-    // stringify converts JSON object to string we need to do this to make the API URL call
+    config.body = getFormBody(body);
+    
   }
 
   try {

@@ -1,7 +1,8 @@
 import styles from '../styles/login.module.css';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { login } from '../api';
+
+import { useAuth } from '../hooks';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,6 +10,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
+  const auth = useAuth();
+  console.log(auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +22,7 @@ const Login = () => {
       return toast.error('Please enter both email & password');
     }
 
-    const response = await login(email, password);
+    const response = await auth.login(email, password);
 
     if (response.success) {
       toast.success('Successfully logged in!');
