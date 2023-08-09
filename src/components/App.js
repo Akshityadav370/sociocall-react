@@ -4,6 +4,7 @@ import { Home, Login } from '../pages';
 import { Loader, Navbar } from './';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+
 const Elementfourofour = () => {
   return <h1>404</h1>;
 };
