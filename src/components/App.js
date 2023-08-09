@@ -11,25 +11,7 @@ const Elementfourofour = () => {
 };
 
 function App() {
-  // const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(true);
-
   const auth = useAuth();
-
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const response = await getPosts();
-  //     console.log('response', response);
-
-  //     if (response.success) {
-  //       setPosts(response.data.posts);
-  //     }
-
-  //     setLoading(false);
-  //   };
-
-  //   fetchPosts();
-  // }, []);
 
   if (auth.loading) {
     return <Loader />;
