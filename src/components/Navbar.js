@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className={styles.rightNav}>
         {auth.user && (
           <div className={styles.user}>
-            <Link to="/">
+            <Link to="/settings">
               <img
                 src="https://www.svgrepo.com/show/492678/avatar-girl.svg"
                 alt=""
