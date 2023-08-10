@@ -9,7 +9,7 @@ const Home = ({ posts }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await getPosts();
-      console.log('response', response);
+      // console.log('response', response);
 
       if (response.success) {
         setPosts(response.data.posts);

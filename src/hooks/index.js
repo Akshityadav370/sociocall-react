@@ -9,10 +9,12 @@ import {
     getItemFromLocalStorage,
   } from '../utils';
 
+// Custom Hook : to use the AuthContext
 export const useAuth = () => {
     return useContext(AuthContext);
 }
 
+// Custom Hook : to set the state of the AuthContext
 export const useProvideAuth = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -21,8 +23,11 @@ export const useProvideAuth = () => {
 
         const userToken = getItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
 
+        // If token already present in local storage means he is logged in ...
         if (userToken) {
+            // Decoding the user from the token
             const user = jwt(userToken);
+            // Setting the user in local to put it into the global state (Authcontext state)
             setUser(user);
         }
 
@@ -34,7 +39,9 @@ export const useProvideAuth = () => {
         const response = await userLogin(email, password);
     
         if (response.success) {
+          // setting the user in local state
           setUser(response.data.user);
+          // retrieving the JWT token into the local storage
           setItemInLocalStorage(
             LOCALSTORAGE_TOKEN_KEY,
             response.data.token ? response.data.token : null
@@ -50,12 +57,13 @@ export const useProvideAuth = () => {
         }
       };
     
-
+    // Desetting the user in local state & removing the token in local storage on logout
     const logout = () => {
         setUser(null);
         removeItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
     }
 
+    // returning the local states to set into global state (AuthContext state)
     return {
         user,
         loading, 
