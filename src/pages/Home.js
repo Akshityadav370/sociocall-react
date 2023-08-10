@@ -1,8 +1,11 @@
 import styles from '../styles/home.module.css';
 import PropTypes from 'prop-types';
 import { Comment } from '../components';
+import { useState, useEffect } from 'react';
+import { getPosts } from '../api';
+import { Loader } from '../components';
 
-const Home = ({ posts }) => {
+const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -63,8 +66,8 @@ const Home = ({ posts }) => {
             </div>
 
             <div className={styles.postCommentsList}>
-              {post.comments.map((comment)=> (
-                <Comment comment={comment} key={`comment-${comment._id}`}/>
+              {post.comments.map((comment) => (
+                <Comment comment={comment} key={`comment-${comment._id}`} />
               ))}
             </div>
           </div>
@@ -74,10 +77,10 @@ const Home = ({ posts }) => {
   );
 };
 
-// Props Validation, 
+// Props Validation,
 // prop-types only works in development mode
 Home.propTypes = {
-    posts: PropTypes.array.isRequired
-}
+  posts: PropTypes.array.isRequired,
+};
 
 export default Home;

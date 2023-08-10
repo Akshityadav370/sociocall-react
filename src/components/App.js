@@ -1,10 +1,9 @@
 import { getPosts } from '../api';
 import { useEffect, useState } from 'react';
-import { Home, Login } from '../pages';
+import { Home, Login, Signup } from '../pages';
 import { Loader, Navbar } from './';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../hooks';
-
 
 const Elementfourofour = () => {
   return <h1>404</h1>;
@@ -26,6 +25,8 @@ function App() {
           <Route exact path="/" element={<Home posts={[]} />} />
 
           <Route exact path="/login" element={<Login />} />
+
+          <Route exact path="/register" element={<Signup/>}/>
 
           <Route exact path="*" element={<Elementfourofour />} />
         </Routes>
