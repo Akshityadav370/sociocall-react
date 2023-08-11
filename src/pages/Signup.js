@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 import { useAuth } from '../hooks';
 import styles from '../styles/login.module.css';
@@ -11,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signingUp, setSigningUp] = useState('');
-  
+
   const auth = useAuth();
   const navigate = useNavigate();
 
@@ -47,6 +47,10 @@ const Signup = () => {
 
     setSigningUp(false);
   };
+
+  if (auth.user) {
+    return <Navigate to = "/"/>
+  }
 
   return (
     <form className={styles.loginForm} onSubmit={handleFormSubmit}>

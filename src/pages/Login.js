@@ -1,16 +1,16 @@
 import styles from '../styles/login.module.css';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import { useAuth } from '../hooks';
-
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
   const auth = useAuth();
-  console.log('auth',auth);
+  console.log('auth', auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +31,11 @@ const Login = () => {
 
     setLoggingIn(false);
   };
+
+  if (auth.user) {
+    return <Navigate to = "/"/>
+  }
+
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
       <span className={styles.loginSignupHeader}>Log In</span>

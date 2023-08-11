@@ -1,7 +1,20 @@
 import { Home, Login, Signup, Settings } from '../pages';
 import { Loader, Navbar } from './';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Outlet,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom';
 import { useAuth } from '../hooks';
+
+function PrivateRoute() {
+  const auth = useAuth();
+
+  // console.log('Private Route auth:', auth);
+  return auth.user ? <Outlet /> : <Navigate to="/login" />;
+}
 
 const Elementfourofour = () => {
   return <h1>404</h1>;
@@ -24,9 +37,11 @@ function App() {
 
           <Route exact path="/login" element={<Login />} />
 
-          <Route exact path="/register" element={<Signup/>}/>
+          <Route exact path="/register" element={<Signup />} />
 
-          <Route exact path="/settings" element={<Settings/>}/>
+          <Route exact path="/settings" element={<PrivateRoute />}>
+            <Route exact path="/settings" element={<Settings />}></Route>
+          </Route>
 
           <Route exact path="*" element={<Elementfourofour />} />
         </Routes>
