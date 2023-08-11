@@ -1,9 +1,7 @@
 import styles from '../styles/home.module.css';
-import PropTypes from 'prop-types';
-import { Comment } from '../components';
+import { Comment, Loader } from '../components';
 import { useState, useEffect } from 'react';
 import { getPosts } from '../api';
-import { Loader } from '../components';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -79,8 +77,6 @@ const Home = () => {
 
 // Props Validation,
 // prop-types only works in development mode
-Home.propTypes = {
-  posts: PropTypes.array.isRequired,
-};
+
 
 export default Home;

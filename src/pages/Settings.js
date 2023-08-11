@@ -1,6 +1,7 @@
 import styles from '../styles/settings.module.css';
 import { useAuth } from '../hooks';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Settings = () => {
   const auth = useAuth();
@@ -10,7 +11,50 @@ const Settings = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [savingForm, setSavingForm] = useState(false);
 
-  const updateProfile = () => {};
+  const clearForm = () => {
+    setPassword('');
+    setConfirmPassword('');
+  };
+
+  const updateProfile = async () => {
+    setSavingForm(true);
+
+    let error = false;
+    if (!name || !password || !confirmPassword) {
+      toast.error('Please fill all the fields');
+
+      error = true;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error('Password and confirm password does not match');
+
+      error = true;
+    }
+
+    if (error) {
+      return setSavingForm(false);
+    }
+
+    const response = await auth.updateUser(
+      auth.user._id,
+      name,
+      password,
+      confirmPassword
+    );
+
+    console.log('settings response', response);
+    if (response.success) {
+      setEditMode(false);
+      setSavingForm(false);
+      clearForm();
+
+      return toast.success('User updated successfully');
+    } else {
+      toast.error(response.message);
+    }
+    setSavingForm(false);
+  };
 
   return (
     <div className={styles.settings}>
@@ -32,7 +76,7 @@ const Settings = () => {
             onChange={(e) => setName(e.target.value)}
           />
         ) : (
-          <div className={styles.fieldValue}>{auth.user?.email}</div>
+          <div className={styles.fieldValue}>{auth.user?.name}</div>
         )}
       </div>
 
@@ -64,6 +108,7 @@ const Settings = () => {
             <button
               className={`button ${styles.saveBtn}`}
               onClick={updateProfile}
+              disabled={savingForm}
             >
               {savingForm ? 'Saving profile...' : 'Save profile'}
             </button>

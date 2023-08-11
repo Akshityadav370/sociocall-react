@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import { useAuth } from '../hooks';
 
-import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');

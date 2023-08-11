@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../providers/AuthProvider';
-import { login as userLogin, register } from '../api';
+import { login as userLogin, register, editProfile } from '../api';
 import jwt from 'jwt-decode';
 import {
   setItemInLocalStorage,
@@ -8,6 +8,7 @@ import {
   removeItemFromLocalStorage,
   getItemFromLocalStorage,
 } from '../utils';
+import { toast } from 'react-toastify';
 
 // Custom Hook : to use the AuthContext
 export const useAuth = () => {
@@ -33,6 +34,27 @@ export const useProvideAuth = () => {
 
     setLoading(false);
   }, []);
+
+  const updateUser = async (userId, name, password, confirmPassword) => {
+    const response = await editProfile(userId, name, password, confirmPassword);
+
+    console.log('response', response);
+    if (response.success) {
+      setUser(response.data.user);
+      setItemInLocalStorage(
+        LOCALSTORAGE_TOKEN_KEY,
+        response.data.token ? response.data.token : null
+      );
+      return {
+        success: true,
+      };
+    } else {
+      return {
+        success: false,
+        message: response.message,
+      };
+    }
+  };
 
   const login = async (email, password) => {
     const response = await userLogin(email, password);
@@ -73,6 +95,7 @@ export const useProvideAuth = () => {
 
   // Desetting the user in local state & removing the token in local storage on logout
   const logout = () => {
+    toast.success('Logged out successfully!');
     setUser(null);
     removeItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
   };
@@ -83,6 +106,7 @@ export const useProvideAuth = () => {
     loading,
     login,
     logout,
-    signup
+    signup,
+    updateUser
   };
 };

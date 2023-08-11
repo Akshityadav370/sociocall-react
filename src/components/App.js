@@ -1,5 +1,3 @@
-import { getPosts } from '../api';
-import { useEffect, useState } from 'react';
 import { Home, Login, Signup, Settings } from '../pages';
 import { Loader, Navbar } from './';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -22,7 +20,7 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route exact path="/" element={<Home posts={[]} />} />
+          <Route exact path="/" element={<Home />} />
 
           <Route exact path="/login" element={<Login />} />
 
