@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import styles from '../styles/settings.module.css';
 import { useAuth } from '../hooks';
 
 const UserProfile = () => {
-  const user = {};
+  const location = useLocation();
+  console.log('location', location.state);
+  const { user = {} } = location.state;
+    // const user = {};
 
   return (
     <div className={styles.settings}>

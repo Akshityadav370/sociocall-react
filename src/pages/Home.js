@@ -37,7 +37,17 @@ const Home = () => {
                 alt="user-pic"
               />
               <div>
-                <Link to={`/user/${post.user._id}`} className={styles.postAuthor}>{post.user.name}</Link>
+                <Link
+                  state={{
+                    user: post.user,
+                  }}
+                  to={{
+                    pathname: `/user/${post.user._id}`,
+                  }}
+                  className={styles.postAuthor}
+                >
+                  {post.user.name}
+                </Link>
                 <span className={styles.postTime}>a minute ago</span>
               </div>
             </div>
@@ -78,6 +88,5 @@ const Home = () => {
 
 // Props Validation,
 // prop-types only works in development mode
-
 
 export default Home;
