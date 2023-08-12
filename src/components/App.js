@@ -1,4 +1,4 @@
-import { Home, Login, Signup, Settings } from '../pages';
+import { Home, Login, Signup, Settings, UserProfile } from '../pages';
 import { Loader, Navbar } from './';
 import {
   BrowserRouter,
@@ -41,6 +41,10 @@ function App() {
 
           <Route exact path="/settings" element={<PrivateRoute />}>
             <Route exact path="/settings" element={<Settings />}></Route>
+          </Route>
+
+          <Route exact path="/user/:userId" element={<PrivateRoute/>}>
+            <Route exact path="/user/:userId" element={<UserProfile />}></Route>
           </Route>
 
           <Route exact path="*" element={<Elementfourofour />} />
