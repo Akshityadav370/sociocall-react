@@ -5,7 +5,7 @@ import {
   register,
   editProfile,
   fetchUserFriends,
-  getPosts
+  getPosts,
 } from '../api';
 import jwt from 'jwt-decode';
 import {

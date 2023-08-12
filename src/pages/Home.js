@@ -1,13 +1,13 @@
 import styles from '../styles/home.module.css';
 import { Comment, Loader, CreatePost, FriendsList } from '../components';
 import { useState, useEffect } from 'react';
-import { getPosts } from '../api';
+import { addComment, getPosts } from '../api';
 import { Link } from 'react-router-dom';
 import { useAuth, usePosts } from '../hooks';
 
 
 const Home = () => {
-  
+
   const auth = useAuth();
   const posts = usePosts();
 

@@ -14,7 +14,7 @@ const CreatePost = () => {
     setAddingPost(true);
 
     if (post.length === 0) {
-      setAddingPost(false);    
+      setAddingPost(false);
       toast.error('Cannot post empty content!!');
       return;
     }
@@ -29,7 +29,7 @@ const CreatePost = () => {
       toast.error(response.message);
     }
 
-    setAddingPost(false);    
+    setAddingPost(false);
   };
 
   return (
