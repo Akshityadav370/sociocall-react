@@ -64,7 +64,7 @@ const Home = () => {
                     src="https://www.svgrepo.com/show/1198/like.svg"
                     alt="likes-icon"
                   />
-                  <span>5</span>
+                  <span>{post.likes.length}</span>
                 </div>
 
                 <div className={styles.postCommentsIcon}>
