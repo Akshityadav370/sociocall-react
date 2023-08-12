@@ -36,7 +36,7 @@ const UserProfile = () => {
   }
 
   const checkIfUserIsAFriend = () => {
-    const friends = auth.user.friendships;
+    const friends = auth.user.friends;
 
     const friendIds = friends.map((friend) => friend.to_user._id);
     const index = friendIds.indexOf(userId);
