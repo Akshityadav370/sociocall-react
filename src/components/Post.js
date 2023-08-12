@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { createComment } from '../api';
+import { createComment, toggleLike } from '../api';
 import { usePosts } from '../hooks';
 import styles from '../styles/home.module.css';
 import { Comment } from './';
@@ -17,8 +17,7 @@ const Post = ({ post }) => {
     if (e.key === 'Enter') {
       setCreatingComment(true);
 
-      if (comment.length === 0)
-        return toast.error('Comment cannot be empty!');
+      if (comment.length === 0) return toast.error('Comment cannot be empty!');
 
       const response = await createComment(comment, post._id);
 
@@ -33,6 +32,20 @@ const Post = ({ post }) => {
       setCreatingComment(false);
     }
   };
+
+  const handlePostLikeClick = async () => {
+    const response = await toggleLike(post._id, 'Post');
+
+    if (response.success) {
+      if (response.data.deleted) {
+      toast.success('Like removed successfully!');
+      }else {
+        toast.success('Like added successfully!');
+      }
+    } else {
+      toast.error(response.message);
+    }
+  }
 
   return (
     <div className={styles.postWrapper} key={`post-${post._id}`}>
@@ -61,10 +74,12 @@ const Post = ({ post }) => {
 
         <div className={styles.postActions}>
           <div className={styles.postLike}>
-            <img
-              src="https://www.svgrepo.com/show/1198/like.svg"
-              alt="likes-icon"
-            />
+            <button onClick={handlePostLikeClick}>
+              <img
+                src="https://www.svgrepo.com/show/1198/like.svg"
+                alt="likes-icon"
+              />
+            </button>
             <span>{post.likes.length}</span>
           </div>
 
