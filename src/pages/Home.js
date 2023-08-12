@@ -1,5 +1,5 @@
 import styles from '../styles/home.module.css';
-import { Comment, Loader } from '../components';
+import { Comment, Loader, CreatePost } from '../components';
 import { useState, useEffect } from 'react';
 import { getPosts } from '../api';
 import { Link } from 'react-router-dom';
@@ -32,6 +32,7 @@ const Home = () => {
   return (
     <div className={styles.home}>
       <div className={styles.postsList}>
+        <CreatePost/>
         {posts.map((post) => (
           <div className={styles.postWrapper} key={`post-${post._id}`}>
             <div className={styles.postHeader}>
