@@ -120,6 +120,23 @@ export const useProvideAuth = () => {
     removeItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
   };
 
+  const updateUserFriends = (addFriend, friend) => {
+    if (addFriend) {
+      setUser({
+        ...user,
+        friends: [...user.friends, friend],
+      });
+      return;
+    }
+    const newFriends = user.friends.filter(
+      (f) => f.to_user._id !== friend.to_user._id
+    );
+    setUser({
+      ...user,
+      friends: newFriends
+    })
+  };
+
   // returning the local states to set into global state (AuthContext state)
   return {
     user,
@@ -128,5 +145,6 @@ export const useProvideAuth = () => {
     logout,
     signup,
     updateUser,
+    updateUserFriends,
   };
 };
